@@ -1,0 +1,39 @@
+body {
+  font-family: 'HelveticaNeue-Light';
+}
+.msg {
+  margin: 10px 0;
+  padding: 10px;
+  width: 400px;
+  background-color: #efefef;
+}
+#username, #text {
+  margin: 5px 0px;
+}
+#post {
+  padding: 0.5em 1em;
+  background-color: #50b1ff;
+  border: none;
+  color: #FFF;
+}
+#login {
+  padding: 0.5em 1em;
+  background-color: #DD4B39;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+}
+#logout {
+  padding: 0.5em 1em;
+  background-color: #DD4B39;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+}
+#tothemap{
+  padding: 0.5em 1em;
+  background-color: purple;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>userPropertyTest</title>
+    <meta charset="utf-8">
+    <style>
+    body {
+      font-family: 'HelveticaNeue-Light';
+    }
+    .msg {
+      margin: 10px 0;
+      padding: 10px;
+      width: 400px;
+      background-color: #efefef;
+    }
+    #username, #text {
+      margin: 5px 0px;
+    }
+    #post {
+      padding: 0.5em 1em;
+      background-color: #50b1ff;
+      border: none;
+      color: #FFF;
+    }
+    #login {
+      padding: 0.5em 1em;
+      background-color: #DD4B39;
+      border: none;
+      color: #FFF;
+      cursor: pointer;
+    }
+  </style>
+  </head>
+
+  <!--firebase console-->
+  <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+  <script src="https://www.gstatic.com/firebasejs/3.0.4/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCaGDtXtpJCXiZuluebYKZfB3si_7pwBok",
+      authDomain: "userproperty-850cf.firebaseapp.com",
+      databaseURL: "https://userproperty-850cf.firebaseio.com",
+      projectId: "userproperty-850cf",
+      storageBucket: "userproperty-850cf.appspot.com",
+      messagingSenderId: "132744568545"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+
+  <body>
+
+    <button id="login">Login with Google</button><br/>
+    <input id="text" type="text" placeholder="Message"><br/>
+    <button id="post">Post</button><br/>
+    <div id="results"></div>
+
+    <h1>This is TestPage For UserProperty</h1>
+    <div id="firebaseui-auth-container"></div>
+
+
+    <script src="app.js"></script>
+
+  </body>
+</html>

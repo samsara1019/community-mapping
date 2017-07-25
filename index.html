@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+ <html lang="en">
+  <head>
+   <title>EasyAuth</title>
+   <meta charset="UTF-8">
+ </head>
+ <!-- Below is the initialization snippet for my Firebase project. It will vary for each project -->
+ <!-- <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script> -->
+ <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+ <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+ <script src="https://www.gstatic.com/firebasejs/3.0.4/firebase.js"></script>
+ <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCaGDtXtpJCXiZuluebYKZfB3si_7pwBok",
+    authDomain: "userproperty-850cf.firebaseapp.com",
+    databaseURL: "https://userproperty-850cf.firebaseio.com",
+    projectId: "userproperty-850cf",
+    storageBucket: "userproperty-850cf.appspot.com",
+    messagingSenderId: "132744568545"
+  };
+  firebase.initializeApp(config);
+ </script>
+ <!-- The code below initializes the sign-in widget from FirebaseUI web. -->
+ <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+   <script type="text/javascript">
+    var uiConfig = {
+     signInSuccessUrl: 'loggedIn.html',
+     signInOptions: [
+      // Specify providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+     ],
+     // Terms of service url can be specified and will show up in the widget.
+     tosUrl: '<your-tos-url>'
+    };
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+ </script>
+ <!-- Include a simple background image & and title -->
+  <div></div>
+  <body>
+       <h1 align="center" style="color:white;">Firebase Auth Quickstart Demo</h1>
+        <div id="firebaseui-auth-container"></div>
+  </body>
+ </html>
