@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+    <head>
+        <title>isMapatMap</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--Import this CDN first-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <!-- materialize CSS & materialize JavaScript-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+        <!-- firebase CDN -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+        <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+        <!-- css -->
+        <link  href="management.css" rel="stylesheet"> 
+        <link  href="index.css" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- naverMap CDN -->
+        <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=KCgWMVi9vLqk507JbIGM&submodules=geocoder,panorama"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    </head>
+    <body>
+        <div class="container" style="padding:0px;margin:0px;width:100%;">
+            <div class="row-full">
+                <nav>
+                    <div class="nav-wrapper">
+                        <a href="index.html" class="brand-logo center"><img src="logo.png" style="width:70%"></a>
+                        <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">dehaze</i></a>
+                    </div>
+                </nav>
+            
+            
+
+                <ul id="slide-out" class="side-nav">
+                    <li>
+                        <div class="userView">
+                            <div class="background">
+                                <img src="profileBG.jpg">
+                            </div>
+                            <a href="#!user"><img class="circle"  id="userPhoto" src=""></a>
+                            <a href="#!name"><span class="white-text name" id="userName">로그인을 해주세요.</span></a>
+                            <a href="#!email"><span class="white-text email" id="userEmail">로그인을 해주세요.</span></a>
+                        </div>
+                    </li>
+                    <li><a href="management.html"><i class="material-icons">cloud</i>프로젝트 관리</a></li>
+                    <li><a id="login">로그인</a></li>
+                    <li><div class="divider"></div></li>
+                    <li><a class="subheader">Subheader</a></li>
+                    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+                </ul>
+                <div id="results"></div>
+                <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
+                    <a class="btn btn-floating btn-large cyan modal-trigger" href="#modal1"><i class="material-icons">add</i></a>
+                </div>
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <div class="row">
+                            <form class="col s12" id="PJForm">
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <input id="PJName" type="text">
+                                        <label for="first_name">프로젝트명</label>
+                                    </div>
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn btn-floating">
+                                            <i class="material-icons" >add_a_photo</i>
+                                            <input type="file" id="PJTitle">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input placeholder="메인이 될 이미지" class="file-path " type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                    <input placeholder="어떤 프로젝트에요?" id="PJInfo" type="text">
+                                    <label for="PJInfo">프로젝트 설명</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <label style="margin:0px">프로젝트를 볼 수 있는 사람은?</label>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="switch">
+                                            <label>
+                                            전체공개
+                                            <input checked type="checkbox" id="label1">
+                                            <span class="lever"></span>
+                                            참여자만
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s6">
+                                        <label style="margin:0px">댓글이나 좋아요를 할 수 있는 사람은?</label>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="switch">
+                                            <label>
+                                            전체공개
+                                            <input checked type="checkbox" id="label2">
+                                            <span class="lever"></span>
+                                            참여자만
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label>맵의 중심 지점은 어디? (마커를 끌어다 놓으세요)</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12" id="map">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                    카테고리를 추가합시다.
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s10">
+                                        <input id="CGName1" type="text" >
+                                        <label for="first_name">카테고리 이름</label>
+                                    </div>
+                                    <div class="col s2">
+                                        <div class="btn btn-floating" id="addCategory">
+                                            <i class="material-icons">add</i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="TextBoxContainer">
+                                </div>
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script language="JavaScript" type="text/javascript" src="management.js?v=<%=System.currentTimeMillis()%>"></script>
+    </body>
+</html>

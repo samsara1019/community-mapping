@@ -1,0 +1,4 @@
+.tap-target-wrapper.open .tap-target {
+    transform: scale(3);
+    opacity: 1;
+}

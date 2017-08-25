@@ -1,0 +1,29 @@
+nav .nav-wrapper{
+  background-color: #FF707D;
+}
+@media screen and (max-width: 899px) {
+  nav a.button-collapse {
+    display: block;
+  }
+  body{
+    width: 100%;
+    margin: 0px auto;
+  }
+  .row-full{
+    width: 100%;
+    margin: 0px auto;
+  }
+}
+@media only screen and (min-width:900px) {
+  nav a.button-collapse {
+   display: block;
+  }
+  body{
+    width: 600px;
+    margin: 0px auto;
+  }
+  .row-full{
+    width: 500px;
+    margin: 0px auto;
+  }
+}

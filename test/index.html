@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+   <title>auth</title>
+   <meta charset="UTF-8">
+   <link rel="stylesheet" href="mystyle.css">
+ </head>
+ <!-- Below is the initialization snippet for my Firebase project. It will vary for each project -->
+ <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+ <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+
+
+ <body>
+   
+   <button id="logout">로그아웃하기</button>
+   <button id="tothemap">맵으로가기</button>
+   <h1 id="info">로그인이 완료되었습니다.</h1>
+
+   <input id="text" type="text" placeholder="Message"><br/>
+   <button id="post">Post</button><br/>
+   <div id="results"></div>
+
+
+   <script>
+    var auth;
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDNSBtgIvpLzy5c6X6WVqUJ9_m22dJ46a0",
+      authDomain: "logincheck-f1857.firebaseapp.com",
+      databaseURL: "https://logincheck-f1857.firebaseio.com",
+      projectId: "logincheck-f1857",
+      storageBucket: "logincheck-f1857.appspot.com",
+      messagingSenderId: "696285582631"
+    };
+    firebase.initializeApp(config);
+
+    auth = firebase.auth();
+    var authProvider = new firebase.auth.FacebookAuthProvider();
+     
+   // 현재 유저 Uid
+   var currentUid = null;
+   //userID Token이 바뀔때 발동
+   //signs in , signs out할때 사용
+   auth.onAuthStateChanged(function(user) {
+    if (user && user.uid != currentUid) {
+     currentUid = user.uid;
+
+/*
+    var user = firebase.auth().currentUser;
+     user.updateProfile({
+       displayName: "이윤혜"
+     }).then(function(){
+       console.log('update');
+     }, function(error){
+       console.log('no');
+     });
+*/
+     username = user.displayName;
+     userlevel = user.level;
+     console.log(user)
+     var users = myFirebase.child('UserInfo').child(currentUid);
+
+
+    document.getElementById("info").innerHTML = '<p> 로그인이 완료 되었습니다. ' + username + '님 이메일은 ' + user.email + ' 입니다.</p>';
+    users.set({username:username, uid:currentUid, level : 24});
+
+    postButton.style.display = "block";
+    textInput.style.display = "block";
+
+    console.log(currentUid);
+    } else {
+     auth.signInWithPopup(authProvider);
+    }
+   });
+
+</script>
+<script language="JavaScript" type="text/javascript" src="app.js?v=<%=System.currentTimeMillis()%>"></script>
+  
+</body>
+ </html>

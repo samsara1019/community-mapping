@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style media="screen">
+  .board_top { clear:both; }
+
+  .board_list { clear:both; width:100%; table-layout:fixed; margin:5px 0 0 0; border-bottom:1px #34BEBB solid;}
+  .board_list th { font-weight:normal;font-size:13px; color:#249F98; }
+  .board_list th { white-space:nowrap; height:34px; overflow:hidden; text-align:center; font-family:NanumGothicBoldWeb;font-size:13px;}
+  .board_list th { border-top:2px #34BEBB solid; border-bottom:1px #34BEBB solid;background-color:#EDF6F5;}
+
+  .board_list td { padding:5px;font-size:13px;color:#888888; }
+  .board_list td { border-bottom:1px dotted #65D6D2; }
+  .board_list td.num { color:#888888; text-align:center; }
+  .board_list td.checkbox { text-align:center; }
+  .board_list td.subject { overflow:hidden;color:#000000; }
+  .board_list td.name { padding:0 0 0 0px;text-align:center; }
+  .board_list td.datetime { font:normal 11px tahoma; text-align:center;color:#888888; }
+  .board_list td.hit { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+  .board_list td.good { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+  .board_list td.nogood { font:normal 11px tahoma; color:#BABABA; text-align:center; }
+
+  .board_list .notice { font-weight:normal; }
+  .board_list .current { font:normal 11px NanumGothicBoldWeb; color:#E15916; }
+  .board_list .comment { font-family:NanumGothicWeb; font-size:11px; color:#EE5A00; }
+
+  .board_button { clear:both; margin:10px 0 0 0; }
+
+  .board_page { clear:both; text-align:center; margin:3px 0 0 0; }
+  .board_page a:link { color:#777; }
+
+  a.board_title { color:#000000;text-decoration:none; font-size:13px;}
+  a.board_title:hover { color:#026B80;font-family:NanumGothicBoldWeb;}
+
+  a.board_title_secret { color:#999999;text-decoration:none; font-size:13px;}
+  a.board_title_secret:hover { color:#999999;}
+
+
+  .board_btn { border:1px #34BEBB dashed; -webkit-border-radius:3px;  -moz-border-radius:3px; -ms-border-radius:3px;font-family:NanumGothicBoldWeb;text-align:center;font-size:12px;cursor:pointer;margin-left:3px;color:#000000;width:60px;height:25px;line-height:25px;background-color:#EDF6F5;float:left;}
+
+  .board_btn_2 { border:1px #34BEBB dashed; -webkit-border-radius:3px;  -moz-border-radius:3px; -ms-border-radius:3px;font-family:NanumGothicBoldWeb;text-align:center;font-size:12px;cursor:pointer;margin-left:3px;color:#000000;width:60px;height:25px;line-height:25px;background-color:#EDF6F5;}
+
+  	.ed_input {FONT-SIZE: 13px; COLOR: #000000; line-height:23px;height:23px;  font-family: "나눔 고딕","나눔고딕",  "NanumGothicWeb", "NanumGothic", "굴림",  gulim, Arial, sans-serif; border:2px #dddddd solid;margin-top:1px;margin-bottom:1px;}
+  	.ed_input:focus {background-color:#F5FAFA;border-color:#249F98;}
+
+  	#mytd {padding: 2px 9px 0px 8px; cursor:pointer; font-size: 12px; color: #404040}
+  	#mylink {color: #222222; text-decoration: none}
+  	#mylink:link {color: #222222; text-decoration: none}
+  	#mylink:visited {color: #222222; text-decoration: none}
+  	#mylink:hover {color: #999999; text-decoration: underline}
+
+  	form {display:inline}
+  	th, caption, li, input, button, select, td {FONT-SIZE: 13px; COLOR: #000000; line-height:170%;  font-family:  "NanumGothicWeb", "나눔 고딕","나눔고딕", "NanumGothic", "굴림",  gulim, Arial, sans-serif; }
+
+  	img {border:0px none;}
+
+
+  	#writeContents { line-height:170%; font-size:13px;text-align:left;width:100%;}
+
+  	textarea   {FONT-SIZE:13px; COLOR:#525252; background:#FFFFFF; BORDER:#C7C7C7 1px solid; PADDING:4px;line-height:170%;
+                scrollbar-track-color:#FFFFFF; scrollbar-face-color:#FFFFFF;
+                scrollbar-3dlight-color:#B3D9D5; scrollbar-highlight-color:#FFFFFF;
+                scrollbar-shadow-color:#B3D9D5; scrollbar-darkshadow-color:#FFFFFF;
+                scrollbar-arrow-color:#B3D9D5;}
+
+  	.no_Line		{border:none; height:auto;}
+
+  	.CateListForm{font-size:12px}
+  	.CateWriteForm{font-size:12px}
+  	.smallFont { font-size:0.9em;}
+  	.smallFontH { font-size:12px}
+
+  	.write_table_left { width:110px; height:31px; padding-left:15px; text-align:left; COLOR:#249F98;  font-size:12px; font-family:NanumGothicBoldWeb; background-color:#EDF6F5}
+  	.write_table_right {height:25px; padding-left:7px; background-color:#FFFFFF; line-height:25px;}
+
+  	.write_table_left_s { width:80px; height:31px; padding-left:15px; text-align:left; COLOR:#249F98;  font-size:12px; font-family:NanumGothicBoldWeb;  background-color:#EDF6F5}
+  	.write_table_right_s {height:25px; padding-left:7px; background-color:#FFFFFF; line-height:25px;}
+
+  	.write_table_center { text-align:center; font-family:NanumGothicBoldWeb; background-color:#EDF6F5;font-size:13px;}
+
+  	.pdt5 {padding-top:5px}
+  	.pdb5 {padding-bottom:5px}
+  	.pdr5 {padding-right:5px}
+  	.pdl5 {padding-left:5px}
+  	.pdt10 {padding-top:5px}
+  	.pdb10 {padding-bottom:10px}
+  	.pdr10 {padding-right:10px}
+  	.pdl10 {padding-left:10px}
+  	.pda5 {padding:5px}
+  	.pda10 {padding:10px}
+
+  	.listLine1 {background-color:#34BEBB}
+  	.listLine2 {background-color:#ACDACE}
+
+  	.writeLine1 {background-color:#34BEBB}
+  	.writeLine2 {background-color:#ACDACE}
+  	.writeLine3 {background-color:#DFE0E0}
+
+  	.viewLine1 {background-color:#34BEBB}
+  	.viewLine2 {background-color:#ACDACE}
+  	.viewLine3 {background-color:#FFFFFF}
+  	.viewLine4 {background-color:#C3ECEA}
+  	.viewLine5 {background-color:#EFEFEF}
+  	.viewLine6 {background-color:#F5F5F5}
+
+  	.cmtLine1 {background-color:#ACDACE}
+  	.cmtLine2 {background-color:#FAFAFA}
+  	.cmtLine3 {background-color:#C3ECEA}
+  	.cmtLine4 {background-color:#34BEBB}
+  	.cmtLine5 {background-color:#DFE0E0}
+
+  	.cmtBG1 {background-color:#EDF6F5}
+
+  	.commLine1 {background-color:#34BEBB}
+  	.commLine2 {background-color:#ACDACE}
+  	.commTitle {COLOR:#249F98;  font-size:12px; font-family:NanumGothicBoldWeb; background-color:#EDF6F5; height:28px}
+
+  	.view_table_left {COLOR:#249F98;  font-family:NanumGothicBoldWeb; background-color:#EDF6F5; height:28px; padding-left:15px;font-size:12px;width:15%;}
+  	.view_table_right {font-family:NanumGothicWeb;width:85%;}
+
+  	.view_table_left_m {COLOR:#249F98;  font-family:NanumGothicBoldWeb; background-color:#EDF6F5; height:28px; padding-left:15px;font-size:12px;width:20%;}
+  	.view_table_right_m {font-family:NanumGothicWeb;width:80%}
+
+  	.listTop {height:31px; background-color:#EDF6F5; COLOR:#249F98; font-family:NanumGothicBoldWeb}
+
+  	.t_bold { font-family:NanumGothicBoldWeb;}
+
+
+  	.write_head { height:30px; text-align:center; color:#8492A0; }
+  	.field { border:1px solid #ccc; }
+
+
+  .in_frame_input {height:25px;line-height:25px;font-family:NanumGothicWeb;border:1px #ACDACE solid;background-color:#ffffff;}
+  .in_frame_input:focus {border:1px #249F98 solid;background-color:#EDF6F5;}
+  .in_frame_input_no {height:25px;line-height:25px;font-family:NanumGothicWeb;border:1px #ACDACE solid;background-color:#EDF6F5;}
+
+  #Div_Loading {position:absolute;left:0;top:0; background-color:#ffffff; display:block;z-index:5000;width:100%;height:100%;}
+
+  .type_box { padding:2px; color:#ffffff;font-family:NanumGothicBoldWeb; }
+  .type_box_b {background-color:#999999;}
+  .type_box_l {background-color:#F29317;}
+  .type_box_c {background-color:#0091BF;}
+  .type_box_p {background-color:#289500;}
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>간단한 지도 표시하기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=KCgWMVi9vLqk507JbIGM"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <script>
+       var config = {
+			apiKey: "AIzaSyDNSBtgIvpLzy5c6X6WVqUJ9_m22dJ46a0",
+			authDomain: "logincheck-f1857.firebaseapp.com",
+			databaseURL: "https://logincheck-f1857.firebaseio.com",
+			projectId: "logincheck-f1857",
+			storageBucket: "logincheck-f1857.appspot.com",
+			messagingSenderId: "696285582631"
+		};
+		firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+  <script type="text/javascript">
+    var currentUid = null;
+   firebase.auth().onAuthStateChanged(function(user) {
+    if (user && user.uid != currentUid) {
+     currentUid = user.uid;
+
+     username = user.displayName;
+
+    document.getElementById("writer").innerHTML =username;
+
+    console.log(currentUid);
+    } else {
+     currentUid = null;
+     console.log("no user signed in");
+    }
+   });
+  </script>
+  <table id="inframe_table" width="100%"  border="0" cellspacing="0" cellpadding="0" style="border:2px #34BEBB solid;" ><tr><td align="center">
+  <table width="100%" cellpadding="0" cellspacing="0" >
+
+  			<script type="text/javascript">
+  			parent.$('#Layer_Board_Id_cate').html("");
+  			parent.$('#Layer_Board_Id_title').html("포인트 입력하기");
+  		</script>
+  		<tr>
+  		<td align="left">
+
+  			<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+
+
+  				<tr>
+  					<td class="write_table_left">작성자</td>
+  					<td class="write_table_right" >
+  						<div style="float:left;" id="writer">
+              </div>
+
+  													<div style="float:right;width:250px;">
+  								<table width="250px;" border="0" cellspacing="0" cellpadding="0">
+  															<tr>
+  										<td class="write_table_left_s">승인상태</td>
+  										<td class="write_table_right_s">
+  											<select name="wr_6" id="wr_6" required itemname="승인상태" class='in_frame_input'>
+  												<option value="1">승인대기(신규)</option>
+  												<option value="2">승인대기(수정)</option>
+  												<option value="3" selected>승인완료</option>
+  												<option value="4">승인보류</option>
+  											</select>
+  										</td>
+  									</tr>
+  														</table>
+  								</div>
+
+  					</td>
+  				</tr>
+  				<tr>
+  					<td height="1" colspan="2" class="writeLine2"></td>
+  				</tr>
+
+
+  <!--
+
+  -->
+
+
+  <input type="hidden" name=wr_email email itemname="이메일" value="yoonani72@gmail.com">
+
+
+
+
+  				<tr>
+  					<td class="write_table_left" >분류 /  제목 </td>
+  					<td class="write_table_right">
+  					<select id="ca_name" name=ca_name required itemname="분류" class="in_frame_input">
+    				      <option value="">--선택하세요--</option>
+  					           <option value='165' >잘알려진 곳</option><option value='166' >모일수 있는 곳</option><option value='167' >먹거리가 있는 곳</option><option value='168' >역사자원</option><option value='169' >사람 혹은 동식물</option><option value='170' >자연자원</option><option value='163' >1</option><option value='172' >그외 필요자원</option>								</select>&nbsp;
+  					<input style="width:300px;" name=wr_subject id="wr_subject" itemname="제목" required value="" class="in_frame_input">
+  					</td>
+  				</tr>
+  				<tr>
+  					<td height="1" colspan="2" class="writeLine2"></td>
+  				</tr>
+
+
+
+
+
+  				<tr>
+  					<td class="write_table_left">사진첨부
+  													&nbsp;
+  							<span onclick="add_file();" style="cursor:pointer;"><img src=""></span>
+  							<span onclick="del_file();" style="cursor:pointer;"><img src=""></span>
+  											</td>
+  					<td class="write_table_right">
+  						<table id="variableFiles" cellpadding=0 cellspacing=0></table>								<script type="text/javascript">
+  								var flen = 0;
+  								function add_file(delete_code)
+  								{
+  									var upload_count = 5;
+  									if (upload_count && flen >= upload_count)
+  									{
+  										alert("이 게시판은 "+upload_count+"개 까지만 파일 업로드가 가능합니다.");
+  										return;
+  									}
+
+  									var objTbl;
+  									var objRow;
+  									var objCell;
+  									if (document.getElementById)
+  										objTbl = document.getElementById("variableFiles");
+  									else
+  										objTbl = document.all["variableFiles"];
+
+  									objRow = objTbl.insertRow(objTbl.rows.length);
+  									objCell = objRow.insertCell(0);
+
+  									objCell.innerHTML = "<input type='file' class='in_frame_input' name='bf_file[]' title='파일 용량 10,485,760 바이트 이하만 업로드 가능' style='padding:0;margin:0;width:200px;'>";
+  									if (delete_code)
+  										objCell.innerHTML += delete_code;
+  									else
+  									{
+  																				;
+  									}
+
+  									flen++;
+  								}
+
+  								add_file('');
+
+  								function del_file()
+  								{
+  									// file_length 이하로는 필드가 삭제되지 않아야 합니다.
+  									var file_length = 0;
+  									var objTbl = document.getElementById("variableFiles");
+  									if (objTbl.rows.length - 1 > file_length)
+  									{
+  										objTbl.deleteRow(objTbl.rows.length - 1);
+  										flen--;
+  									}
+  								}
+  								</script>
+
+  					</td>
+  				</tr>
+  				<tr>
+  					<td height="1" colspan="2" class="writeLine2"></td>
+  				</tr>
+
+
+  				<tr>
+  					<td class="write_table_left" align="center" valign="center">설 명 </td>
+
+  					<td class="write_table_right">
+  					<textarea id="wr_content" name="wr_content" class="in_frame_input" style='width:97%; height:70px;word-break:break-all;margin-top:3px;margin-bottom:3px;' rows=5 itemname="내용"></textarea>
+
+  					</tr>
+  				</tr>
+  				<tr>
+  					<td height="1" colspan="2" class="writeLine2"></td>
+  				</tr>
+
+
+
+
+
+
+
+  				<tr>
+  					<td class="write_table_left">
+  						■ 지 도<br>
+  						<span style="font-size:11px;">포인터를 이동하여 정확한 위치를 지정하세요</span>
+
+  					</td>
+  					<td class="write_table_right">
+  						<div id="map_view1" ></div>
+  					</td>
+  				</tr>
+  				<tr>
+  					<td height="1" colspan="2" class="writeLine2"></td>
+  				</tr>
+
+  				<tr>
+  					<td class="write_table_left">주 소</td>
+  					<td class="write_table_right">
+  						<input type="text" class='in_frame_input' size=50 name="wr_homepage" id="wr_homepage" itemname="주소" value="" style="width:98%;">
+  					</td>
+  				</tr>
+  				<tr>
+  					<td height="1" colspan="2" class="writeLine2"></td>
+  				</tr>
+
+  				<input type="hidden" id="wr_1" name="wr_1" value="35.85016457829671" >
+
+  				<input type="hidden" id="wr_2" name="wr_2" value="127.12072979228829" >
+
+  				<tr>
+  					<td class="write_table_center" colspan="2" style="text-align:center;" valign="center" height="48" >
+  						<input id="btn_submit" type="submit" value="작 성 완 료" class="board_btn_2"  onclick="location.href='navermap.html';" accesskey='s' style="height:40px;width:300px;font-size:15px;">
+  					</td>
+  				</tr>
+
+
+  			</table>
+
+  		</td>
+  	</tr>
+  </table>
+
+  </td></tr></table>
+  </form>
+
+
+
+  </div>
+
+<script language="JavaScript" type="text/javascript" src="detailpage.js?v=<%=System.currentTimeMillis()%>">
+</script>
+
+</body>
+</html>
